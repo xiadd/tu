@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-app.use('/', express.static(__dirname + '/dist'))
+app.use('/', express.static(__dirname + '/public'))
 
 app.post('/upload', upload.fields([{ name: 'outfile', maxCount: 1 }]), function (req, res) {
   request({
