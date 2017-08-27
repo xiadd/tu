@@ -12,8 +12,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 
-app.use('/', express.static(__dirname + '/public'))
-
 app.post('/upload', upload.fields([{ name: 'outfile', maxCount: 1 }]), function (req, res) {
   request({
     method: 'POST',
@@ -42,6 +40,9 @@ app.post('/upload', upload.fields([{ name: 'outfile', maxCount: 1 }]), function 
   })
   
 })
+
+app.use('/static', express.static(__dirname + '/public/static'))
+app.use('*', express.static(__dirname + '/public'))
 
 app.listen(3000, function () {
   console.log('upload server is running')
