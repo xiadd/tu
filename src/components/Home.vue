@@ -2,8 +2,29 @@
   <div class="container-fluid home-page">
     <dropzone id="myVueDropzone" url="/upload" paramName="outfile" acceptedFileTypes="image/*" v-on:vdropzone-success="showSuccess">
     </dropzone>
-    <b-card class="text-center result-link" v-if="resultLink">
-      {{ resultLink }}
+    <b-card no-body class="result-link" v-if="showResultLink">
+      <b-tabs small card ref="tabs">
+        <b-tab title="Origin">
+          <pre>
+            <p v-for="link in resultLinks" :key="link.url">{{ link.url }}</p>
+          </pre>
+        </b-tab>
+        <b-tab title="HTML">
+          <pre>
+            <p v-for="link in resultLinks" :key="link.url">{{ link.html }}</p>
+          </pre>
+        </b-tab>
+        <b-tab title="Markdown">
+          <pre>
+            <p v-for="link in resultLinks" :key="link.url">{{ link.markdown }}</p>
+          </pre>
+        </b-tab>
+        <b-tab title="BBcode">
+          <pre>
+            <p v-for="link in resultLinks" :key="link.url">{{ link.bbcode }}</p>
+          </pre>
+        </b-tab>
+      </b-tabs>
     </b-card>
   </div>
 </template>
@@ -17,14 +38,21 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js Home!',
-      resultLink: false
+      showResultLink: false,
+      resultLinks: []
     }
   }, 
   methods: {
     showSuccess: function(file, response) {
-      console.log(response)
       if (response.code === 'success') {
-        this.resultLink = response.data.url
+        this.showResultLink = true
+        this.resultLinks.push({
+          filename: response.data.filename,
+          url: response.data.url,
+          html: `<img src="${response.data.url}" alt="${response.data.filename}" />`,
+          markdown: `![${response.data.filename}](${response.data.url})`,
+          bbcode: `[img]${response.data.url}[/img]`
+        })
       }
     }
   },
