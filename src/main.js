@@ -5,6 +5,15 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import Raven from 'raven-js'
+import RavenVue from 'raven-js/plugins/vue'
+
+
+Raven
+  .config('https://5731f40584394e658fc70832a2aa22ec@sentry.io/209378')
+  .addPlugin(RavenVue, Vue)
+  .install()
+
 Vue.config.productionTip = false
 
 import BootstrapVue from 'bootstrap-vue'
