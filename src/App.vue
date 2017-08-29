@@ -39,11 +39,11 @@ export default {
 }
 
 .fade-enter {
-  transform: scale(1.1);
-  opacity: 0;
+  transform: scale(1.01);
+  filters: blur(5px)
 } 
 .fade-leave-active {
-  transform: scale(1.1);
-  opacity: 0;
+  transform: scale(1.01);
+  filters: blur(5px)
 }
 </style>
